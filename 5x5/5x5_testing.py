@@ -7,7 +7,7 @@ global_columns = global_rows
 
 global_win = 4
 
-outfile = open("moves_.txt", "w")
+outfile = open("moves.txt", "w")
 
 outfile.write("5x5 Tic Tac Toe - Human vs. AI\n")
 print("5x5 Tic Tac Toe - Human vs. AI")
@@ -217,8 +217,10 @@ class State:
             if win is not None:
                 if win == 1:
                     print(self.player1.name, "wins!")
+                    outfile.write("{0} wins!".format(self.player1.name))
                 else:
                     print("tie!")
+                    outfile.write("tie!")
                 self.reset()
                 break
             else:
@@ -232,8 +234,10 @@ class State:
                 if win is not None:
                     if win == -1:
                         print(self.player2.name, "wins!")
+                        outfile.write("{0} wins!".format(self.player2.name))
                     else:
                         print("tie!")
+                        outfile.write("tie!")
                     self.reset()
                     break
 
