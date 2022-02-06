@@ -1,6 +1,5 @@
 import numpy as np
 import pickle
-import copy
 
 global_rows = 5
 global_columns = global_rows
@@ -86,7 +85,8 @@ class State:
             ones = self.check_win(self.board[i, :])
             if ones is not None:
                 return ones
-        x = copy.deepcopy(self.board)
+        #x = copy.deepcopy(self.board)
+        x = self.board
         diags = [x[::-1, :].diagonal(i) for i in range(-x.shape[0] + 1, x.shape[1])]
         diags.extend(x.diagonal(i) for i in range(x.shape[1] - 1, -x.shape[0], -1))
         for each in diags:
@@ -335,7 +335,7 @@ training_rounds = 100000
 #p1.savePolicy()
 #p1.loadPolicy("policy_p1_10000")
 p1 = Agent("computer", epsilon=0)
-p1.loadPolicy("policy_p1_10000")
+p1.loadPolicy("policy_p1_1000")
 
 p2 = Human("human")
 

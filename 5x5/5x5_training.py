@@ -1,7 +1,6 @@
 import numpy as np
 import pickle
 import copy
-import pyprind
 
 global_rows = 5
 global_columns = global_rows
@@ -87,7 +86,8 @@ class State:
             ones = self.check_win(self.board[i, :])
             if ones is not None:
                 return ones
-        x = copy.deepcopy(self.board)
+        #x = copy.deepcopy(self.board)
+        x = self.board
         diags = [x[::-1, :].diagonal(i) for i in range(-x.shape[0] + 1, x.shape[1])]
         diags.extend(x.diagonal(i) for i in range(x.shape[1] - 1, -x.shape[0], -1))
         for each in diags:
@@ -170,12 +170,9 @@ class State:
 
     def train(self, number_of_rounds=100000, modulo=10000):
         print("Total training rounds: ", number_of_rounds)
-        bar = pyprind.ProgBar(number_of_rounds)
         for i in range(number_of_rounds):
-            bar.update()
-            if i > 0:
-                if i % modulo == 0:
-                    print("  Round number:", i)
+            if i % modulo == 0:
+                print("Round number:", i)
             while not self.done:
                 if np.random.uniform(0, 1) <= 0.1:
                     self.ToggleSymbol()
